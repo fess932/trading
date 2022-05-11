@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+option go_package = "pkg/gen/exchange";
+
+message OHLCV {
+  int64 ID = 1; // внутренний идентификатор, просто авто-инкремент
+  int32 Time = 2;
+  int32 Interval = 3; // в данном случае - 1 секунда ( см configs )
+  int64 Open = 4;
+  int64 High = 5;
+  int64 Low = 6;
+  int64 Close = 7;
+  int32 Volume = 8;
+  string Ticker = 9;
+}
+
+message Deal {
+  int64 ID = 1; // DealID который вернулся вам при простановке заявки
+  int32 BrokerID = 2;
+  int32 ClientID = 3;
+  string Ticker = 4;
+  int32 Volume = 5; // сколько купили-продали
+  bool Partial = 6; // флаг что сделка клиента исполнилсь частично
+  int32 Time = 7;
+  int64 Price = 8;
+}
+
+message DealID {
+  int64 ID = 1;
+  int64 BrokerID = 2;
+}
+
+message BrokerID {
+  int64 ID = 1;
+}
+
+message CancelResult {
+  bool success = 1;
+}
+
+service Exchange {
+  // поток ценовых данных от биржи к брокеру
+  // мы каждую секнуду будем получать отсюда событие с ценами,
+  // которые брокер аггрегирует у себя в минуты и показывает клиентам
+  // устанавливается 1 раз брокером
+  rpc Statistic (BrokerID) returns (stream OHLCV) {}
+
+  // отправка на биржу заявки от брокера
+  rpc Create (Deal) returns (DealID) {}
+
+  // отмена заявки
+  rpc Cancel (DealID) returns (CancelResult) {}
+
+  // исполнение заявок от биржи к брокеру
+  // устанавливается 1 раз брокером и при исполнении какой-то заявки
+  rpc Results (BrokerID) returns (stream Deal) {}
+}
