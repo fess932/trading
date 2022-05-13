@@ -17,9 +17,8 @@ func main() {
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.StampMilli})
 	log.Printf("Starting broker...")
 
-	config := configs.ReadConfig()
-
-	broker := StarStockbrocker(config.Addr)
+	config := configs.ReadBrokerConfig()
+	broker := StarStockbrocker(config.ExchangeAddr)
 
 	e, err := broker.client.Statistic(context.Background(), &exchange.BrokerID{ID: broker.id})
 	if err != nil {

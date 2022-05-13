@@ -3,6 +3,8 @@ module trading
 go 1.18
 
 require (
+	github.com/akyoto/cache v1.0.6
+	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/rs/zerolog v1.26.1
 	google.golang.org/grpc v1.46.0
 	google.golang.org/protobuf v1.28.0

@@ -1,8 +1,15 @@
+include .env
+export
+
 exchange:
 	go run ./cmd/exchange
 
 broker:
 	go run ./cmd/broker
+
+client:
+	go run ./cmd/client
+
 
 tools:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
