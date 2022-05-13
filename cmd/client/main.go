@@ -135,11 +135,36 @@ func NewDealer() *Dealer {
 		//},
 		"action": func(msg *tgbotapi.EditMessageTextConfig, deal *Deal, args ...string) error {
 			msg.Text = deal.Render()
+			backMenu := tgbotapi.NewInlineKeyboardMarkup(
+				tgbotapi.NewInlineKeyboardRow(
+					tgbotapi.NewInlineKeyboardButtonData("SPFB.RTS", "buy SPFBRTS"),
+					tgbotapi.NewInlineKeyboardButtonData("IMOEX", "buy IMOEX"),
+				),
+				tgbotapi.NewInlineKeyboardRow(
+					tgbotapi.NewInlineKeyboardButtonData("🔙 Назад", "/back"),
+					tgbotapi.NewInlineKeyboardButtonData("❌ Отменить", "/delete"),
+				),
+			)
+			msg.ReplyMarkup = &backMenu
 
 			return nil
 		},
 		"tool": func(msg *tgbotapi.EditMessageTextConfig, deal *Deal, args ...string) error {
-			panic("implement me")
+			msg.Text = deal.Render()
+
+			backMenu := tgbotapi.NewInlineKeyboardMarkup(
+				tgbotapi.NewInlineKeyboardRow(
+					tgbotapi.NewInlineKeyboardButtonData("SPFB.RTS", "buy SPFBRTS"),
+					tgbotapi.NewInlineKeyboardButtonData("IMOEX", "buy IMOEX"),
+				),
+				tgbotapi.NewInlineKeyboardRow(
+					tgbotapi.NewInlineKeyboardButtonData("🔙 Назад", "/back"),
+					tgbotapi.NewInlineKeyboardButtonData("❌ Отменить", "/delete"),
+				),
+			)
+			msg.ReplyMarkup = &backMenu
+
+			return nil
 		},
 		"price": func(msg *tgbotapi.EditMessageTextConfig, deal *Deal, args ...string) error {
 			panic("implement me")
