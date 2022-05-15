@@ -92,11 +92,14 @@ func run(client *client.TelegramClient, in <-chan tgbotapi.Chattable, config con
 		}
 	}()
 
-	// читае сообщения из канала и отправляем в бот, можно ограничить rps
+	// читае сообщения из канала и отправляем в бот, можно ограничить rps,
+	// самое простое отправлять сообщение каждые 0.05 секунды (20 в секунду)
 	for msg := range in {
 		_, err = bot.Send(msg)
 		if err != nil {
 			log.Err(err).Msg("Failed to send message")
 		}
+
+		time.Sleep(time.Second / 20)
 	}
 }

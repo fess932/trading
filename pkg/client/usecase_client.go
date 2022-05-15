@@ -31,12 +31,10 @@ type OpenOrder struct {
 func (c Client) Status() (models.Status, error) {
 	return models.Status{}, nil
 }
-
 func (c Client) Deal() (models.Status, error) {
 	//TODO implement me
 	panic("implement me")
 }
-
 func (c Client) Cancel() (models.Status, error) {
 	//TODO implement me
 	panic("implement me")
