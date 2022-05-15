@@ -1,11 +1,10 @@
-run:
-  skip-files:
-    - main.go
-    - app_test.go
-    - common.go
+#run:
+#  skip-files:
+#    - main.go
+#    - app_test.go
+#    - common.go
 
 linters:
-
 
   disable-all: true
   enable:
@@ -30,7 +29,7 @@ linters:
     - gochecknoglobals
     - gochecknoinits
     - gocognit
-    - goconst
+#    - goconst
     - gocritic
     - gocyclo
     - goerr113
@@ -82,8 +81,8 @@ linters:
     - wrapcheck
     - wsl
 
-linters-settings:
-  varnamelen:
-    ignore-decls:
-      - w http.ResponseWriter
-      - r *http.Request
+#linters-settings:
+#  varnamelen:
+#    ignore-decls:
+#      - w http.ResponseWriter
+#      - r *http.Request
